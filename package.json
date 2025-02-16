@@ -18,10 +18,12 @@
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@vue/cli-service": "^5.0.0",
     "autoprefixer": "^9.8.8",
     "postcss": "^7.0.39",
-    "@vue/cli-service": "^5.0.0"
+    "sass": "^1.85.0",
+    "sass-loader": "^16.0.5"
   },
-  "author": "",
+  "author": "Viktorija Deksne",
   "license": "MIT"
 }
