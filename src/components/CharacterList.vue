@@ -157,11 +157,11 @@
     <div
       class="character-list grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-5 gap-4"
     >
-      <div
+      <router-link
         v-for="character in characters"
         :key="character.id"
+        :to="{ name: 'CharacterDetail', params: { id: character.id } }"
         class="character-item flex flex-col items-center cursor-pointer"
-        @click="selectCharacter(character)"
       >
         <img :src="character.image" :alt="character.name" />
         <h3>{{ character.name }}</h3>
@@ -178,7 +178,8 @@
         </div>
         <p>Species: {{ character.species }}</p>
         <p>Gender: {{ character.gender }}</p>
-      </div>
+      </router-link>
+
       <div v-if="isLoading" class="loading text-center p-4">
         Loading more characters...
       </div>
@@ -216,6 +217,10 @@ export default {
   mounted() {
     this.$store.commit("RESET_CHARACTERS");
     this.fetchCharacters();
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
 };
 </script>
@@ -298,19 +303,15 @@ export default {
 }
 .logo-main {
   width: auto;
-  height: clamp(10rem, 13.472vw, 19.375rem);
-}
-.logo-main {
-  width: auto;
-  height: clamp(10rem, 13.472vw, 19.375rem);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .logo-main svg {
-  width: clamp(28vw, 28rem, 10rem);
-  height: clamp(11vw, 13.375rem, 5rem);
+  width: 20vw;
+  height: auto;
+  padding: 3vw;
 }
 .status-icon {
   width: clamp(0.25rem, 0.5vw, 0.5vw);

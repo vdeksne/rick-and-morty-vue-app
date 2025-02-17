@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import CharacterList from "../components/CharacterList.vue";
 
 export default {

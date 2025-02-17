@@ -1,16 +1,17 @@
 <template>
-  <div class="character-detail-container">
+  <div class="main">
     <div class="character-detail">
       <img
         :src="character.image"
         alt="Character Image"
         v-if="character.image"
         class="image"
+        loading="eager"
       />
       <div class="info text-left">
         <h1 class="heading">{{ character.name }}</h1>
         <p class="paragraph">
-          Character Id: <strong class="par-color">{{ character.id }} </strong>
+          Character Id: <strong class="par-color">{{ character.id }}</strong>
         </p>
         <p class="paragraph">
           Species: <strong class="par-color">{{ character.species }}</strong>
@@ -34,8 +35,8 @@
         </p>
       </div>
     </div>
+    <button @click="goBack" class="back-button">Back</button>
   </div>
-  <button @click="goBack" class="back-button">Back</button>
 </template>
 
 <script>
@@ -49,6 +50,7 @@ export default {
   },
   computed: {
     formattedCreatedDate() {
+      if (!this.character || !this.character.created) return "";
       const date = new Date(this.character.created);
       const year = date.getFullYear();
       const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -58,8 +60,19 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push({ name: "CharacterList" });
+      this.$router.back();
     },
+  },
+  beforeRouteLeave(to, from, next) {
+    from.meta.scrollPosition = window.scrollY;
+    next();
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (from.meta.scrollPosition) {
+        window.scrollTo(0, from.meta.scrollPosition);
+      }
+    });
   },
 };
 </script>
@@ -74,19 +87,18 @@ export default {
 
 .back-button {
   cursor: pointer;
-  margin-left: 7.5rem;
   color: #282828;
-  font-feature-settings: "liga" off, "clig" off;
   font-family: $font-family;
   font-size: 1.25rem;
-  font-style: normal;
   font-weight: 600;
-  line-height: 1.625rem; /* 130% */
+  line-height: 1.625rem;
   text-decoration-line: underline;
   text-decoration-style: solid;
-  text-decoration-skip-ink: auto;
   text-decoration-thickness: auto;
   text-underline-offset: auto;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 4rem;
 }
 
 .back-button:hover {
@@ -104,7 +116,6 @@ export default {
 }
 .heading {
   color: #282828;
-  font-feature-settings: "liga" off, "clig" off;
   font-family: $font-family;
   font-size: 1.25rem;
   font-style: normal;
@@ -129,5 +140,30 @@ export default {
 .image {
   width: 25rem;
   height: 25rem;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 7.5rem;
+}
+
+@media screen and (max-width: 900px) {
+  .main {
+    margin: 3rem;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .character-detail {
+    flex-direction: column;
+  }
+  .info {
+    margin-top: 2rem;
+    margin-left: 0;
+  }
+  .main {
+    margin: 1rem;
+  }
 }
 </style>

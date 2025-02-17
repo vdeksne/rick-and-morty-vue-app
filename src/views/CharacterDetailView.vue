@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 import CharacterDetail from "../components/CharacterDetail.vue";
 
 export default {
@@ -15,6 +15,12 @@ export default {
   },
   computed: {
     ...mapState(["selectedCharacter"]),
+  },
+  created() {
+    this.fetchCharacter(this.$route.params.id);
+  },
+  methods: {
+    ...mapActions(["fetchCharacter"]),
   },
 };
 </script>
