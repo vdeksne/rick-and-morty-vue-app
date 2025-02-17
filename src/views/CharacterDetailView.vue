@@ -25,8 +25,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.character-detail {
-  padding: 20px;
-}
-</style>
+<style scoped></style>
