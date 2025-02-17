@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 
 module.exports = {
+  publicPath: process.env.NODE_ENV === "production" ? "/your-repo-name/" : "/",
   devServer: {
     port: 8080,
   },
