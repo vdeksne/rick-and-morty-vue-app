@@ -1,6 +1,6 @@
 # Rick and Morty Vue App
 
-This is a Vue.js application that utilizes the Rick and Morty REST API to display a list of characters with an infinite scroll feature and detailed views for each character.
+This is a Vue.js application that utilizes the Rick and Morty REST API to display a list of characters with an infinite scroll feature and detailed views for each character. Check out the live demo [here](https://rick-and-morty-vd.netlify.app/).
 
 ## Features
 
@@ -36,6 +36,18 @@ This is a Vue.js application that utilizes the Rick and Morty REST API to displa
    ```
 
 5. Open your browser and go to localhost to view the application.
+
+## Deployment
+
+To deploy the application, follow these steps:
+
+1. Build the application for production:
+
+   ```
+   yarn build
+   ```
+
+2. Deploy the contents of the `dist` directory. The application is deployed automatically using Netlify. Any changes pushed to the main branch will trigger a new build and deployment.
 
 ## Usage
 
